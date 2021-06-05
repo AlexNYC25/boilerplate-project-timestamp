@@ -25,6 +25,37 @@ app.get("/api/hello", function (req, res) {
 });
 
 
+let isStringANumber = (string) => {
+  return /^\d+$/.test(string);
+}
+
+let getDateObject = (dateString) => {
+
+  if(dateString === undefined){
+    return new Date();
+  }
+
+  if(isStringANumber(dateString)){
+    return new Date(parseInt(dateString));
+  }
+  
+  return new Date(dateString);
+ 
+}
+
+let generateDateJson = (dateObj) => {
+  let obj = {};
+  obj.unix = dateObj.getTime();
+  obj.etc = dateObj.toString();
+
+  return obj;
+}
+
+// actual microservice API 
+app.get("/api/:date?", function (req, res) {
+  let dateParameterDateObj = getDateObject(req.params.date);
+  res.json(generateDateJson(dateParameterDateObj))
+})
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
