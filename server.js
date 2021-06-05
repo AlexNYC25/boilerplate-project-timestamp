@@ -46,7 +46,7 @@ let getDateObject = (dateString) => {
 let generateDateJson = (dateObj) => {
   let obj = {};
   obj.unix = dateObj.getTime();
-  obj.etc = dateObj.toString();
+  obj.utc = dateObj.toUTCString();
 
   if(isNaN(dateObj.getTime())){
     return { error : "Invalid Date" }
