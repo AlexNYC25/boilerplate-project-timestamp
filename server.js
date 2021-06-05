@@ -48,6 +48,10 @@ let generateDateJson = (dateObj) => {
   obj.unix = dateObj.getTime();
   obj.etc = dateObj.toString();
 
+  if(isNaN(dateObj.getTime())){
+    return { error : "Invalid Date" }
+  }
+
   return obj;
 }
 
